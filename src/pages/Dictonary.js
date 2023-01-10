@@ -1,29 +1,25 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dictionary() {
-    const [first, setFirst] = useState('');
-    const [second, setSecond] = useState('');
-
-    useEffect(() => {
-        console.log('State Updated ' + first)
-    }, [first]);
-    useEffect(() => {
-        console.log('State Updated2 ' + second)
-    }, [second]);
+    const [word, setWord] = useState('');
+    const navigate = useNavigate();
 
     return (
         <>
-            <input type="text" onChange={(e) => {
-                setFirst(e.target.value);
-            }}
+            <input
+                type="text"
+                onChange={(e) => {
+                    setWord(e.target.value);
+                }}
             />
-            <h2>Let's get the definition for word {first}</h2>
-
-            <input type="text" onChange={(e) => {
-                setSecond(e.target.value);
-            }}
-            />
-            <h2>Let's get the definition for word2 {second}</h2>
+            <button
+                onClick={() => {
+                    navigate('/definition/' + word, { replace: true })
+                }}
+            >
+                Search
+            </button>
         </>
     )
 }
